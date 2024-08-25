@@ -6,6 +6,10 @@ import BookItem from "@/components/book-item";
 import { InferGetServerSidePropsType, InferGetStaticPropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import fetchRandomBooks from "@/lib/fetch-random-books";
+import { AppDispatch, RootState } from "@/store";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { decrement, increment } from "@/store/counterSlice";
 
 export const getStaticProps = async () => {
   // 컴포넌트보다 먼저 실행되며, 컴포넌트에 필요한 데이터를 불러오는 함수
@@ -27,7 +31,15 @@ export default function Home({
   allBooks,
   recoBooks,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  //console.log(data);
+  // redux
+  const dispatch: AppDispatch = useDispatch();
+  const value = useSelector((state: RootState) => state.counter.value);
+  const handleValueIncrement = () => {
+    dispatch(increment());
+  };
+  const handleValueDecrement = () => {
+    dispatch(decrement());
+  };
 
   useEffect(() => {
     console.log(window);
@@ -35,6 +47,14 @@ export default function Home({
 
   return (
     <div className={style.container}>
+      <section>
+        <h3>redux를 이용한 counter 테스트</h3>
+        <div>
+          <button onClick={handleValueIncrement}>증가</button>
+          <button onClick={handleValueDecrement}>감소</button>
+          {value}
+        </div>
+      </section>
       <section>
         <h3>지금 추천하는 도서</h3>
         {recoBooks.map((book) => (

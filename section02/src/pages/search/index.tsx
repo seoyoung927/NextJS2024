@@ -5,6 +5,8 @@ import BookItem from "@/components/book-item";
 import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import { BookData } from "@/type";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 // export const getServerSideProps = async (context: GetServerSidePropsContext) => {
 //   const q = context.query.q;
@@ -16,6 +18,9 @@ import { BookData } from "@/type";
 // };
 
 export default function Page() {
+  // redux
+  const value = useSelector((state: RootState) => state.counter.value);
+
   const [books, setBooks] = useState<BookData[]>([]);
 
   const router = useRouter();
@@ -35,6 +40,9 @@ export default function Page() {
 
   return (
     <div>
+      <h3>redux를 이용한 counter 테스트</h3>
+      {value}
+
       {books.map((book) => (
         <BookItem key={book.id} {...book} />
       ))}
