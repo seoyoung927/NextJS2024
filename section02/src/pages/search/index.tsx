@@ -2,20 +2,11 @@ import SearchableLayout from "@/components/searchable-layout";
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import BookItem from "@/components/book-item";
-import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import { BookData } from "@/type";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-
-// export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-//   const q = context.query.q;
-//   const books = await fetchBooks(q as string);
-
-//   return {
-//     props: { books },
-//   };
-// };
+import Head from "next/head";
 
 export default function Page() {
   // redux
@@ -33,13 +24,19 @@ export default function Page() {
 
   useEffect(() => {
     if (q) {
-      // 검색 결과를 불러오는 로직
       getSearchResult();
     }
   }, [q]);
 
   return (
     <div>
+      <Head>
+        <title>한입북스</title>
+        <meta property="og:image" content="/thumnail.png" />
+        <meta property="og:title" content="한입북스" />
+        <meta property="og:description" content="한입 북스에 등록된 도서들을 만나보세요" />
+      </Head>
+
       <h3>redux를 이용한 counter 테스트</h3>
       {value}
 
