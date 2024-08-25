@@ -3,14 +3,15 @@ import style from "./index.module.css";
 import { ReactNode, useEffect } from "react";
 import books from "@/mock/books.json";
 import BookItem from "@/components/book-item";
-import { InferGetServerSidePropsType } from "next";
+import { InferGetServerSidePropsType, InferGetStaticPropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import fetchRandomBooks from "@/lib/fetch-random-books";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   // 컴포넌트보다 먼저 실행되며, 컴포넌트에 필요한 데이터를 불러오는 함수
   // const data = "hello";
   // console.log("서버사이드프롭스에요");
+  console.log("인덱스 페이지");
 
   const [allBooks, recoBooks] = await Promise.all([fetchBooks(), fetchRandomBooks()]);
 
@@ -25,7 +26,7 @@ export const getServerSideProps = async () => {
 export default function Home({
   allBooks,
   recoBooks,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   //console.log(data);
 
   useEffect(() => {
