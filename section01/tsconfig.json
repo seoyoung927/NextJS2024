@@ -4,6 +4,8 @@
     "module": "esnext",
     "outDir": "dist",
     "strict": true,
+    // 엄격한 Null 검사: null 타입이 아닌 변수에 null 타입을 할당하는 것을 허용할 것인가?
+    "strictNullChecks": false,
     // 자동으로 모든 TS 파일들을 개별 모듈로 취급해준다.
     "moduleDetection": "force"
   },
